@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -10,7 +9,7 @@ import '../helpers/style.dart';
 ///
 // ignore: must_be_immutable
 class Bubble extends StatelessWidget {
-  Bubble({
+  const Bubble({
     required this.me,
     required this.index,
     Key? key,
