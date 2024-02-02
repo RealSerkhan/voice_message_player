@@ -1,5 +1,5 @@
 class Constants {
-  static const List<String> messages = [
+  static List<String> messages = [
     'Hello!',
     'Hey, How r u?',
     'Not so good! :(',

@@ -25,6 +25,11 @@ class _ChatPageState extends State<ChatPage> {
             _userInformation(context),
             const SizedBox(height: 8),
             _messages(context),
+            TextButton(
+                onPressed: () {
+                  addMessage();
+                },
+                child: Text('Add'))
           ],
         ),
       );
@@ -44,6 +49,7 @@ class _ChatPageState extends State<ChatPage> {
               child: Icon(Icons.arrow_back_ios_outlined, size: 3.7.w),
             ),
             SizedBox(width: 5.5.w),
+
             /// avatar.
             ClipRRect(
               borderRadius: BorderRadius.circular(100),
@@ -97,12 +103,17 @@ class _ChatPageState extends State<ChatPage> {
 
   ///
   Widget _messagesList(BuildContext context) => ListView.builder(
-        itemCount: 7,
+        itemCount: Constants.messages.length,
         itemBuilder: (BuildContext context, int index) => Bubble(
           me: index % 2 == 0,
           index: index,
-          voice: index == 4 || index == 5,
-          msg: Constants.messages[index],
+          voice: true,
+          msg: Constants.messages.reversed.toList()[index],
         ),
       );
+
+  addMessage() {
+    Constants.messages.add('2');
+    setState(() {});
+  }
 }

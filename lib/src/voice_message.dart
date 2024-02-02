@@ -55,8 +55,8 @@ class VoiceMessage extends StatefulWidget {
       contactPlayIconColor,
       contactPlayIconBgColor;
   final bool played, me;
-  Function()? onPlay;
-  String Function(Duration duration)? formatDuration;
+  final Function()? onPlay;
+  final String Function(Duration duration)? formatDuration;
 
   @override
   // ignore: library_private_types_in_public_api
@@ -74,12 +74,14 @@ class _VoiceMessageState extends State<VoiceMessage>
   int duration = 00;
   String _remainingTime = '';
   AnimationController? _controller;
+  String Function(Duration duration)? formatDuration;
 
   @override
   void initState() {
-    widget.formatDuration ??= (Duration duration) {
-      return duration.toString().substring(2, 11);
-    };
+    formatDuration = widget.formatDuration ??
+        (Duration duration) {
+          return duration.toString().substring(2, 11);
+        };
 
     _setDuration();
     super.initState();
@@ -97,7 +99,7 @@ class _VoiceMessageState extends State<VoiceMessage>
           _player.seek(const Duration(milliseconds: 0));
           setState(() {
             duration = _audioDuration!.inMilliseconds;
-            _remainingTime = widget.formatDuration!(_audioDuration!);
+            _remainingTime = formatDuration!(_audioDuration!);
           });
           break;
         default:
@@ -197,7 +199,7 @@ class _VoiceMessageState extends State<VoiceMessage>
                 Padding(
                   padding: EdgeInsets.only(left: 1.2.w()),
                   child: Text(
-                    widget.formatDuration!(widget.duration!),
+                    formatDuration!(widget.duration!),
                     style: TextStyle(
                       fontSize: 10,
                       color:
@@ -343,7 +345,7 @@ class _VoiceMessageState extends State<VoiceMessage>
 
   void _setAnimationConfiguration(Duration audioDuration) async {
     setState(() {
-      _remainingTime = widget.formatDuration!(audioDuration);
+      _remainingTime = formatDuration!(audioDuration);
     });
     debugPrint("_setAnimationConfiguration $_remainingTime");
     _completeAnimationConfiguration();
@@ -379,7 +381,7 @@ class _VoiceMessageState extends State<VoiceMessage>
     if (_isPlaying) _changePlayingStatus();
     duration = d.round();
     _controller?.value = (noiseWidth) * duration / maxDurationForSlider;
-    _remainingTime = widget.formatDuration!(_audioDuration!);
+    _remainingTime = formatDuration!(_audioDuration!);
     await _player.seek(Duration(milliseconds: duration));
     setState(() {});
   }
