@@ -10,11 +10,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  audioplayers: 5.2.1
-  # just_audio: 0.9.35
-  just_audio_cache: 0.1.2
-  syncfusion_flutter_sliders: 23.1.38
-  http: 1.2.0
+  audioplayers: ^5.2.1
+  just_audio: ^0.9.36
+  just_audio_cache: ^0.1.2
+  syncfusion_flutter_sliders: ^23.1.38
+  http: ^1.2.1
 
 dev_dependencies:
   flutter_test:
